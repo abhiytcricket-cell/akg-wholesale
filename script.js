@@ -218,12 +218,23 @@ function setupEventListeners() {
         window.open(`https://wa.me/${storeSettings.whatsapp}?text=${encoded}`, '_blank');
     });
 
-    // Admin Modal Controls
+    // Admin Modal Controls with Password Protection
     const openAdmin = (e) => {
         e.preventDefault();
-        adminModal.classList.add('active');
-        overlay.classList.add('active');
-        renderAdminInventory();
+        
+        // Prompt for password
+        const passwordInput = prompt("Enter Admin Secret Password:");
+        
+        // Set your own secure password here:
+        const secureAdminPassword = "Unisoasi@1980"; 
+
+        if (passwordInput === secureAdminPassword) {
+            adminModal.classList.add('active');
+            overlay.classList.add('active');
+            renderAdminInventory();
+        } else if (passwordInput !== null) {
+            alert("Incorrect password! Access denied.");
+        }
     };
 
     adminLoginBtn.addEventListener('click', openAdmin);
